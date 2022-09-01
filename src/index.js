@@ -17,10 +17,13 @@ import "./assets/css/style.css";
 
 // pages for this kit
 import Index from "./views/Index.js";
+import PostJobPage from "./views/pages/PostJobPage.js";
+import JobListPage from "./views/pages/JobListPage.js";
 import LoginPage from "./views/pages/LoginPage.js";
 import RegisterPage from "./views/pages/RegisterPage.js";
 import CustomerJobList from "./views/pages/CustomerJobList.js";
 import PublicProfileView from "./views/pages/PublicProfileView.js";
+import Changepassword from "./views/pages/Changepassword.js";
 
 
 ReactDOM.render(
@@ -28,10 +31,13 @@ ReactDOM.render(
 		<Switch>
 			<Switch>
 				<Route path="/index" render={(props) => <Index {...props} />} />
+				<Route path="/post-job" render={(props) => <PostJobPage {...props} />} />
+				<Route path="/job-list" render={(props) => <JobListPage {...props} />} />
 				<Route path="/signin" render={(props) => <LoginPage {...props} />} />
-				<Route path="/signup" render={(props) => <RegisterPage {...props} />} />
+				<Route path="/customer-confirm-mail" render={(props) => <RegisterPage {...props} />} />
 				<Route path="/customer/joblist" render={(props) => <CustomerJobList {...props} />} />
 				<Route path="/supplier/publicprofileview" render={(props) => <PublicProfileView {...props} />} />
+				<Route path="/change-password" render={(props) => <Changepassword {...props} />} />
 				<Redirect to="/index" />
 				<Redirect from="/" to="/index" />
 				
