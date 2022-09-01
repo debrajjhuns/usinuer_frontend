@@ -4,7 +4,7 @@ import React from "react";
 import IndexNavbar from "../../components/Navbars/IndexNavbar.js";
 import DefaultFooter from "../../components/Footers/DefaultFooter.js";
 import IndexHeader from "../../components/Headers/IndexHeader.js";
-
+import Sidebar from "../../components/Navbars/Sidebar.js";
 
 function PublicProfileView() {
   
@@ -15,19 +15,7 @@ function PublicProfileView() {
 			<div className="container cjw">
                 <div className="row">
                 <div className="col-sm-4">
-                    <div className="sidebar">
-                    <h3>My Account</h3>
-                    <ul className="side-nav">       
-                        <li><a href="customer_jobList.html">Jobs</a></li>
-                        <li className="active"><a href="customer_publicViewProfile.html">My Profile - Public View</a></li>
-                        <li><a href="account.html">My Profile</a></li>
-                        <li><a href="editProfile.html">Edit My Profile</a></li>
-                        <li><a href="withdraw.html">Withdraw Funds</a></li>
-                        <li><a href="customer_feedback1.html">Review Machinists</a></li>
-                        <li><a href="payment_list.html">Invoices</a></li>                  
-                        <li><a href="editPassword.html">Change Password</a></li>            
-                    </ul>
-                    </div>
+                    <Sidebar />
                     <div className="sidebar">
                     <h3>Member Details</h3>
                     <div className="location">

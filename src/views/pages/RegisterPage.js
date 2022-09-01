@@ -3,12 +3,18 @@ import useForm from "../../useForm";
 import validate from '../../FormValidationRules';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+// core components
+import IndexNavbar from "../../components/Navbars/IndexNavbar.js";
+import DefaultFooter from "../../components/Footers/DefaultFooter.js";
+import IndexHeader from "../../components/Headers/IndexHeader.js";
+
 import axios from "axios";
 import { config } from '../../constant';
-const getRegisterUrl = config.url.API_URL+"/users/register";
+const getRegisterUrl = config.url.API_URL+"/user/auth/register";
 
 
 function RegisterPage(props) {
+	
 	const [active, setActive] = useState(1);
 	const {
 		values,
@@ -19,22 +25,32 @@ function RegisterPage(props) {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [successMessage, setSuccessMessage] = useState('');
 	
+	let role = localStorage.getItem("role");
+	let email = localStorage.getItem("email");
+	
 	function changeVal(){
 	}
 	
 	function register() {
-		console.log('No errors, submit callback called!');
+		/*console.log('No errors, submit callback called!');
 		console.log(values);
 		const dataArray = new FormData();
 		dataArray.append("firstname", values.firstname);
 		dataArray.append("lastname", values.lastname);		
 		dataArray.append("email", values.email);
-		dataArray.append("password", values.password);
+		dataArray.append("password", values.password);*/
+		let dataArray={};
+		if(role==1){
+			dataArray = {role:1,check:false,email:email,account:values.account,name:values.name,surname:values.surname,user_name:values.user_name,password:values.password};
+		}else{
+			dataArray = {role:2,check:false,email:email,account:values.account,name:values.name,surname:values.surname,user_name:values.user_name,password:values.password};
+		}
+		
 		axios.post(getRegisterUrl, dataArray)
 		.then((response) => {
 			console.log(response);
 		// successfully uploaded response
-			if(response.data.status === 1){
+			/*if(response.data.status === 1){
 				
 				window.scrollTo(0, 0);
 				document.body.scrollTop = 0;
@@ -50,7 +66,7 @@ function RegisterPage(props) {
 				const errorMessage = response.data.message;
 				setErrorMessage(errorMessage);
 				NotificationManager.error('',errorMessage);
-			}
+			}*/
 		})
 		.catch((error) => {
 		// error response
@@ -74,9 +90,104 @@ function RegisterPage(props) {
   
   return (
     <>
-      {/* <ExamplesNavbar /> */}
+		<IndexNavbar />
+		<IndexHeader title="CREATE YOUR ACCOUNT" />
+		<div className="container sign_wrapper">
+			<div className="row">
+				<div className="col-sm-2">
+				</div>
+				<div className="col-sm-8">
+					<div className="register_c">
+						<h3>Register as a {role==1?'Customer':'Machinist'}</h3>
+						<form onSubmit={handleSubmit}>
+							<h4>Please Provide Your Information Below:</h4>
+							<div className="row">
+								<div className="col-sm-4">
+									<label>Type of Account<span>*</span></label>
+								</div>
+								<div className="col-sm-8">
+									<select name="account" onChange={handleChange} value={values.account || ''}>
+										<option value="">Select</option>
+										<option value="Individual">Individual</option>
+										<option value="Company">Company</option>
+									</select>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-sm-4">
+									<label>First Name<span>*</span></label>
+								</div>
+								<div className="col-sm-8">
+									<input className="text" name="name" type="text" onChange={handleChange} value={values.name || ''}/>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-sm-4">
+									<label>Last Name <span>*</span></label>
+								</div>
+								<div className="col-sm-8">
+									<input className="text" name="surname" type="text" onChange={handleChange} value={values.surname || ''}/>
+								</div>
+							</div>
+							<hr />
+							<h4>Contact Information</h4>
+							<div className="row">
+								<div className="col-sm-4">
+									<label>Username <span>*</span></label>
+								</div>
+								<div className="col-sm-8">
+									<input className="text" name="user_name" autoComplete="off" type="text" onChange={handleChange} value={values.user_name || ''}/>
+									<small>Choose a Username to represent you on Machining-4u. It can not be changed later.</small>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-sm-4">
+									<label>Email Address <span>*</span></label>
+								</div>
+								<div className="col-sm-8">
+									<input className="text m_b_none" name="email" type="text" value={email} disabled/>
+									<small>Your email address will not be shared. <a href="#">Privacy policy</a></small>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-sm-4">
+									<label>Create Password<span>*</span></label>
+								</div>
+								<div className="col-sm-8">
+									<input className="text" name="password" type="password" onChange={handleChange} value={values.password || ''}/>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-sm-4">
+									<label>Confirm Password<span>*</span></label>
+								</div>
+								<div className="col-sm-8">
+									<input className="text" name="confirm_password" type="password" onChange={handleChange} value={values.confirm_password || ''}/>
+								</div>
+							</div>
+							<div className="form-check">
+								<label className="form-check-label">
+									<input type="checkbox" className="form-check-input" name="terms" onChange={handleChange} value={values.terms || ''}/>I have read and accept the <a href="#">terms</a> of of use of Machining-4u.co.uk
+								</label>
+							</div><br /><br />
+							<div className="reg-bottom">
+								<button type="button" name="cancel">Cancel</button>
+								<button type="Submit" name="submit">Register</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div className="col-sm-2">
+				</div>
+			</div>
+		</div>
 		
-		<div id="auth">        
+		<DefaultFooter />
+  
+  
+  
+  
+  {/*<div id="auth">        
 			<div className="row h-100">
 				<div className="col-lg-6 align-self-center">
 					<div id="auth-right">
@@ -138,7 +249,7 @@ function RegisterPage(props) {
 
 			</div>
 
-		</div>
+  </div>*/}
 		<NotificationContainer/>
     </>
   );
