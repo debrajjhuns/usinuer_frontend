@@ -24,6 +24,7 @@ import RegisterPage from "./views/pages/RegisterPage.js";
 import CustomerJobList from "./views/pages/CustomerJobList.js";
 import PublicProfileView from "./views/pages/PublicProfileView.js";
 import Changepassword from "./views/pages/Changepassword.js";
+import Editprofileview from "./views/pages/Editprofileview.js";
 
 
 ReactDOM.render(
@@ -38,6 +39,7 @@ ReactDOM.render(
 				<Route path="/customer/joblist" render={(props) => <CustomerJobList {...props} />} />
 				<Route path="/supplier/publicprofileview" render={(props) => <PublicProfileView {...props} />} />
 				<Route path="/change-password" render={(props) => <Changepassword {...props} />} />
+				<Route path="/edit-profile" render={(props) => <Editprofileview {...props} />} />
 				<Redirect to="/index" />
 				<Redirect from="/" to="/index" />
 				
